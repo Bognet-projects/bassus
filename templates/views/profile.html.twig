@@ -44,17 +44,20 @@
                             <h4 class="d-block">
                                 Termékeim
                             </h4>
-                            <a class="btn btn-success d-block" href="#">+</a>
+                            <a class="btn btn-success d-block" href="{{ path('productAdd') }}">+</a>
                         </div>
                         <ul class="list-group list-group-flush">
                             {% for product in user.products %}
                             <li class="list-group-item">
                                 <div class="row">
-                                    <div class="col-10 ">
+                                    <div class="col-8 ">
                                         {{ product.name }}
                                     </div>
                                     <div class="col-2">
                                         <a href="{{ path('productView',{'id': product.id}) }}" class="btn btn-secondary">View</a>
+                                    </div>
+                                    <div class="col-2">
+                                        <a href="{{ path('productDelete',{'id': product.id}) }}" class="btn btn-danger">Delete</a>
                                     </div>
                                 </div>
                             </li>
