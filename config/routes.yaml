@@ -6,7 +6,7 @@ profile:
   controller: App\Controller\ProfileController::dashboard
 
 productView:
-  path: /profile/products/{id}
+  path: /profile/products/edit/{id}
   controller: App\Controller\ProductsController::edit
 
 productAdd:
@@ -16,3 +16,7 @@ productAdd:
 productDelete:
   path: /profile/product/delete/{id}
   controller: App\Controller\ProductsController::delete
+
+productShow:
+  path: /product/show/{id}
+  controller: App\Controller\ProductsController::show

@@ -38,6 +38,15 @@ class ProductsController extends AbstractController
         return $this->render('views/productView.html.twig', ['product' => $product, 'form'=>$form->createView()]);
     }
 
+    public function show($id)
+    {
+        $product = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->findOneBy(['id' => $id]);
+
+        return $this->render('views/productShow.html.twig', ['product' => $product]);
+    }
+
     public function add(UserInterface $user, Request $request){
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $product = new Product();
