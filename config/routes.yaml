@@ -4,3 +4,7 @@ home:
 profile:
   path: /profile
   controller: App\Controller\ProfileController::dashboard
+
+productView:
+  path: /profile/products/{id}
+  controller: App\Controller\ProductsController::edit

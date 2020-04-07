@@ -5,8 +5,64 @@
     <main>
         <div class="container my-5">
             <h2 class="text-center">Dashboard</h2>
-            {{ dump(user) }}
-            <a href="{{ path('app_logout') }}" class="btn btn-danger">Logout</a>
+            <div class="row my-3">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-header d-flex flex-nowrap justify-content-between align-items-center">
+                            <h4 class="d-block">
+                                Személyes adatok
+                            </h4>
+                            <a class="btn btn-danger d-block" href="{{ path('app_logout') }}">Logout</a>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-2">
+                                        Email:
+                                    </div>
+                                    <div class="col-10">
+                                        {{ user.email }}
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-2">
+                                        Név:
+                                    </div>
+                                    <div class="col-10">
+                                        {{ user.firstName }} {{ user.lastName }}
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-header d-flex flex-nowrap justify-content-between align-items-center">
+                            <h4 class="d-block">
+                                Termékeim
+                            </h4>
+                            <a class="btn btn-success d-block" href="#">+</a>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            {% for product in user.products %}
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-10 ">
+                                        {{ product.name }}
+                                    </div>
+                                    <div class="col-2">
+                                        <a href="{{ path('productView',{'id': product.id}) }}" class="btn btn-secondary">View</a>
+                                    </div>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 {% endblock %}
