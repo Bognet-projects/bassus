@@ -2,5 +2,11 @@
 
 
 {% block body %}
-    Profil
+    <main>
+        <div class="container my-5">
+            <h2 class="text-center">Dashboard</h2>
+            {{ dump(user) }}
+            <a href="{{ path('app_logout') }}" class="btn btn-danger">Logout</a>
+        </div>
+    </main>
 {% endblock %}
