@@ -1,0 +1,15 @@
+<?php
+
+
+namespace App\Controller;
+
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+class HomeController extends AbstractController
+{
+    public function index(){
+        return $this->render('views/home.html.twig');
+    }
+
+}
