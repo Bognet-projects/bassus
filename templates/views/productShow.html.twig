@@ -4,7 +4,61 @@
 
     <main>
         <div class="container">
-            {{ dump(product) }}
+            <div class="card">
+                <div class="card-header">
+                    <h4>{{ product.name }}</h4>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-2">
+                                Description:
+                            </div>
+                            <div class="col-10">
+                                {{ product.description }}
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-2">
+                                End date:
+                            </div>
+                            <div class="col-10">
+                                {{ product.endDate | date }}
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-2">
+                                Start price:
+                            </div>
+                            <div class="col-10">
+                                {{ product.startPrice }} Ft
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-2">
+                                Owner:
+                            </div>
+                            <div class="col-10">
+                                {{ product.owner.fullName }}
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="card-body">
+                    <h5 class="card-title text-center">Bets</h5>
+                </div>
+                <div class="card-footer">
+                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <a href="" class="btn btn-outline-success"> Add bet</a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </main>
 

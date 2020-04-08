@@ -31,7 +31,7 @@
                                         Név:
                                     </div>
                                     <div class="col-10">
-                                        {{ user.firstName }} {{ user.lastName }}
+                                        {{ user.fullName }}
                                     </div>
                                 </div>
                             </li>
@@ -51,10 +51,12 @@
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="col-8 ">
-                                        {{ product.name }}
+                                        <a href="{{ path('productShow',{'id': product.id}) }}">
+                                            {{ product.name }}
+                                        </a>
                                     </div>
                                     <div class="col-2">
-                                        <a href="{{ path('productView',{'id': product.id}) }}" class="btn btn-secondary">View</a>
+                                        <a href="{{ path('productView',{'id': product.id}) }}" class="btn btn-secondary">Edit</a>
                                     </div>
                                     <div class="col-2">
                                         <a href="{{ path('productDelete',{'id': product.id}) }}" class="btn btn-danger">Delete</a>
