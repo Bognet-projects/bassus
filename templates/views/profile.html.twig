@@ -21,7 +21,7 @@
                                         Email:
                                     </div>
                                     <div class="col-10">
-                                        {{ user.email }}
+                                        {{ app.user.email }}
                                     </div>
                                 </div>
                             </li>
@@ -31,7 +31,7 @@
                                         Név:
                                     </div>
                                     <div class="col-10">
-                                        {{ user.fullName }}
+                                        {{ app.user.fullName }}
                                     </div>
                                 </div>
                             </li>
@@ -42,12 +42,12 @@
                     <div class="card">
                         <div class="card-header d-flex flex-nowrap justify-content-between align-items-center">
                             <h4 class="d-block">
-                                Termékeim
+                                My products
                             </h4>
                             <a class="btn btn-success d-block" href="{{ path('productAdd') }}">+</a>
                         </div>
                         <ul class="list-group list-group-flush">
-                            {% for product in user.products %}
+                            {% for product in app.user.products %}
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="col-8 ">
@@ -63,6 +63,27 @@
                                     </div>
                                 </div>
                             </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>My bets</h4>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            {% for bet in app.user.bets %}
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-10 ">
+                                            <a href="{{ path('productShow',{'id': bet.product.id}) }}">
+                                                {{ bet.product.name }}
+                                            </a>
+                                        </div>
+                                        <div class="col-2">{{ bet.price }} Ft</div>
+                                    </div>
+                                </li>
                             {% endfor %}
                         </ul>
                     </div>

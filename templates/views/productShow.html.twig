@@ -53,9 +53,24 @@
                 <div class="card-body">
                     <h5 class="card-title text-center">Bets</h5>
                 </div>
+                <ul class="list-group list-group-flush">
+                    {% for bet in product.bets %}
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-2">
+                                    #{{ bet.user.id }}
+                                </div>
+                                <div class="col-6">
+                                    {{ bet.price }} Ft
+                                </div>
+                                <div class="col-4">{{ bet.date | date }}</div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
                 <div class="card-footer">
                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    <a href="" class="btn btn-outline-success"> Add bet</a>
+                        {{ form(form) }}
                     {% endif %}
                 </div>
             </div>

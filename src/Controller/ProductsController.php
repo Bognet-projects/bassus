@@ -4,8 +4,10 @@
 namespace App\Controller;
 
 
+use App\Entity\Bet;
 use App\Entity\Product;
 use App\Entity\User;
+use App\Form\BetType;
 use App\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,13 +40,25 @@ class ProductsController extends AbstractController
         return $this->render('views/productView.html.twig', ['product' => $product, 'form'=>$form->createView()]);
     }
 
-    public function show($id)
+    public function show($id, Request $request,UserInterface $user)
     {
         $product = $this->getDoctrine()
             ->getRepository(Product::class)
             ->findOneBy(['id' => $id]);
+        $owner = $this->getDoctrine()->getRepository(User::class)->find($user->getID());
+        $form = $this->createForm(BetType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $bet = $form->getData();
+            $bet->setProduct($product);
+            $bet->setUser($owner);
+            $bet->setDate(new \DateTime());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($bet);
+            $entityManager->flush();
+        }
 
-        return $this->render('views/productShow.html.twig', ['product' => $product]);
+        return $this->render('views/productShow.html.twig', ['product' => $product, 'form' => $form->createView()]);
     }
 
     public function add(UserInterface $user, Request $request){
