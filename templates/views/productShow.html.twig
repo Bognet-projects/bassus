@@ -4,6 +4,11 @@
 
     <main>
         <div class="container">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
             <div class="card">
                 <div class="card-header">
                     <h4>{{ product.name }}</h4>
@@ -69,7 +74,12 @@
                     {% endfor %}
                 </ul>
                 <div class="card-footer">
-                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    {% for message in app.flashes('error') %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and (app.user.id != product.owner.id) and (date(product.endDate) > date())  %}
                         {{ form(form) }}
                     {% endif %}
                 </div>

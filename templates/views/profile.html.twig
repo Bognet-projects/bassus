@@ -67,7 +67,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 my-4">
                     <div class="card">
                         <div class="card-header">
                             <h4>My bets</h4>
@@ -76,12 +76,12 @@
                             {% for bet in app.user.bets %}
                                 <li class="list-group-item">
                                     <div class="row">
-                                        <div class="col-10 ">
+                                        <div class="col-8 ">
                                             <a href="{{ path('productShow',{'id': bet.product.id}) }}">
                                                 {{ bet.product.name }}
                                             </a>
                                         </div>
-                                        <div class="col-2">{{ bet.price }} Ft</div>
+                                        <div class="col-4">{{ bet.price }} Ft</div>
                                     </div>
                                 </li>
                             {% endfor %}

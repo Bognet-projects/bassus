@@ -11,6 +11,7 @@ use App\Form\BetType;
 use App\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class ProductsController extends AbstractController
@@ -40,22 +41,39 @@ class ProductsController extends AbstractController
         return $this->render('views/productView.html.twig', ['product' => $product, 'form'=>$form->createView()]);
     }
 
-    public function show($id, Request $request,UserInterface $user)
+    public function show($id, Request $request, Security $security)
     {
         $product = $this->getDoctrine()
             ->getRepository(Product::class)
             ->findOneBy(['id' => $id]);
-        $owner = $this->getDoctrine()->getRepository(User::class)->find($user->getID());
+        $startPrice = $product->getStartPrice();
+        $max = $startPrice;
+        foreach ($product->getBets() as $bet){
+                if($max < $bet->getPrice()){
+                    $max = $bet->getPrice();
+                }
+        }
+
         $form = $this->createForm(BetType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
             $bet = $form->getData();
+            if ($startPrice >= $bet->getPrice()){
+                $this->addFlash('error', 'Nem magasabb mint a minimum összeg!');
+                return $this->redirectToRoute('productShow', ['id' => $id]);
+            }
+            if ($max >= $bet->getPrice()){
+                $this->addFlash('error', 'Nem lehet alacsonyabb mint az eddigi maximális összeg!');
+                return $this->redirectToRoute('productShow', ['id' => $id]);
+            }
             $bet->setProduct($product);
-            $bet->setUser($owner);
+            $bet->setUser($security->getUser());
             $bet->setDate(new \DateTime());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($bet);
             $entityManager->flush();
+            $this->addFlash('success', 'Sikeres licit tét!');
+            return $this->redirectToRoute('productShow', ['id' => $id]);
         }
 
         return $this->render('views/productShow.html.twig', ['product' => $product, 'form' => $form->createView()]);
