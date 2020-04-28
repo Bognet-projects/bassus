@@ -10,7 +10,11 @@
                 <a href="{{ path('productShow', {'id': product.id}) }}" class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">{{ product.name }}</h5>
-                        <small>{{ product.endDate.diff(date('now')).days }} days left</small>
+                        {% if date(product.endDate) < date() %}
+                            <small>Ended</small>
+                        {% else %}
+                            <small>{{ product.endDate.diff(date('now')).days }} days left</small>
+                        {% endif %}
                     </div>
                     <p class="mb-1">{{ product.description }}</p>
                     <small>by {{ product.owner.firstName }}</small>

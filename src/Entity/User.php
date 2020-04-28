@@ -57,10 +57,16 @@ class User implements UserInterface
      */
     private $bets;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Product")
+     */
+    private $subscriptions;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
         $this->bets = new ArrayCollection();
+        $this->subscriptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -226,6 +232,32 @@ class User implements UserInterface
             if ($bet->getUser() === $this) {
                 $bet->setUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getSubscriptions(): Collection
+    {
+        return $this->subscriptions;
+    }
+
+    public function addSubscription(Product $subscription): self
+    {
+        if (!$this->subscriptions->contains($subscription)) {
+            $this->subscriptions[] = $subscription;
+        }
+
+        return $this;
+    }
+
+    public function removeSubscription(Product $subscription): self
+    {
+        if ($this->subscriptions->contains($subscription)) {
+            $this->subscriptions->removeElement($subscription);
         }
 
         return $this;

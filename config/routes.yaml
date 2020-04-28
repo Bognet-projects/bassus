@@ -17,6 +17,14 @@ productDelete:
   path: /profile/product/delete/{id}
   controller: App\Controller\ProductsController::delete
 
+productSub:
+  path: /profile/product/sub/{id}
+  controller: App\Controller\ProductsController::sub
+
+productUnSub:
+  path: /profile/product/unsub/{id}
+  controller: App\Controller\ProductsController::unsub
+
 productShow:
   path: /product/show/{id}
   controller: App\Controller\ProductsController::show

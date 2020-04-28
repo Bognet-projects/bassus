@@ -53,6 +53,17 @@ class ProductsController extends AbstractController
                     $max = $bet->getPrice();
                 }
         }
+        $active = false;
+        if($security->getUser()){
+            $usr = $this->getDoctrine()
+                ->getRepository(User::class)
+                ->findOneBy(['id' => $security->getUser()->getId()]);
+            foreach ($usr->getSubscriptions() as $sub){
+                if ($sub->getId() == $id){
+                    $active = true;
+                }
+            }
+        }
 
         $form = $this->createForm(BetType::class);
         $form->handleRequest($request);
@@ -76,7 +87,41 @@ class ProductsController extends AbstractController
             return $this->redirectToRoute('productShow', ['id' => $id]);
         }
 
-        return $this->render('views/productShow.html.twig', ['product' => $product, 'form' => $form->createView()]);
+        return $this->render('views/productShow.html.twig', ['product' => $product, 'form' => $form->createView(), 'active' => $active]);
+    }
+
+    public function sub($id, UserInterface $user)
+    {
+        $product = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->findOneBy(['id' => $id]);
+
+        $usr = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findOneBy(['id' => $user->getId()]);
+        $usr->addSubscription($product);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($usr);
+        $entityManager->flush();
+        $this->addFlash('success', 'Sikeres feliratkozás!');
+        return $this->redirectToRoute('productShow', ['id' => $id]);
+    }
+
+    public function unsub($id, UserInterface $user)
+    {
+        $product = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->findOneBy(['id' => $id]);
+
+        $usr = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findOneBy(['id' => $user->getId()]);
+        $usr->removeSubscription($product);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($usr);
+        $entityManager->flush();
+        $this->addFlash('success', 'Sikeres leiratkozás!');
+        return $this->redirectToRoute('productShow', ['id' => $id]);
     }
 
     public function add(UserInterface $user, Request $request){

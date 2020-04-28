@@ -12,6 +12,13 @@
             <div class="card">
                 <div class="card-header">
                     <h4>{{ product.name }}</h4>
+                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                        {% if active %}
+                            <a href="{{ path('productUnSub', {'id': product.id}) }}" class="btn btn-outline-secondary">Unsubscribe</a>
+                        {% else %}
+                            <a href="{{ path('productSub', {'id': product.id}) }}" class="btn btn-secondary">Subscribe</a>
+                        {% endif %}
+                    {% endif %}
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
