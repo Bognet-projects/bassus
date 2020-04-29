@@ -1,21 +1,27 @@
 @import "~bootstrap/scss/bootstrap";
 body{
- background-image: url("../assets/images/background.jpg");
+  background-image: url("../images/background.jpg");
+  background-size: cover;
 }
 header{
   position:fixed !important;
   top: 10vh;
   left: 0;
 }
-.bg-primary{
-  color:#d2a57d!important;
+.bg-primary, btn-primary {
+  background-color:#d2a57d!important;
 }
-
+.btn-primary,.btn-primary.focus, .btn-primary:focus, .btn-primary:hover,.btn-outline-primary:hover,.btn-outline-primary{
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6, a{
   color:#222021;
 }
-
 .card{
   background-color: #d2a57d;
 }
 
+.navbar-light .navbar-nav .nav-link{
+  color:rgba(0,0,0,1);
+}
