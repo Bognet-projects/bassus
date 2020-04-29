@@ -12,7 +12,7 @@
                             <h4 class="d-block">
                                 Személyes adatok
                             </h4>
-                            <a class="btn btn-danger d-block" href="{{ path('app_logout') }}">Logout</a>
+                            <a class="btn btn-secondary d-block" href="{{ path('app_logout') }}">Logout</a>
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
@@ -44,7 +44,7 @@
                             <h4 class="d-block">
                                 My products
                             </h4>
-                            <a class="btn btn-success d-block" href="{{ path('productAdd') }}">+</a>
+                            <a class="btn btn-secondary d-block" href="{{ path('productAdd') }}">+</a>
                         </div>
                         <ul class="list-group list-group-flush">
                             {% for product in app.user.products %}
@@ -59,7 +59,7 @@
                                         <a href="{{ path('productView',{'id': product.id}) }}" class="btn btn-secondary">Edit</a>
                                     </div>
                                     <div class="col-2">
-                                        <a href="{{ path('productDelete',{'id': product.id}) }}" class="btn btn-danger">Delete</a>
+                                        <a href="{{ path('productDelete',{'id': product.id}) }}" class="btn btn-secondary">Delete</a>
                                     </div>
                                 </div>
                             </li>
