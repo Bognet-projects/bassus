@@ -35,6 +35,17 @@
                                     </div>
                                 </div>
                             </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-2">
+                                        Tag:
+                                    </div>
+                                    <div class="col-10">
+                                        {{ app.user.tag }}
+                                        <a class="btn btn-secondary" href="{{ path('addTag') }}">edit</a>
+                                    </div>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>

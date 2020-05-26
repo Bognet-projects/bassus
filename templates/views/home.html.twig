@@ -4,12 +4,12 @@
     <main>
         <div class="container">
             <h1 class="text-center">HomePage</h1>
-
+            <h3>My tags:</h3>
             <div class="list-group">
                 {% for product in products %}
                 <a href="{{ path('productShow', {'id': product.id}) }}" class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">{{ product.name }}</h5>
+                        <h5 class="mb-1">{{ product.name }} <span class="badge badge-secondary">{{ product.tag }}</span></h5>
                         {% if date(product.endDate) < date() %}
                             <small>Ended</small>
                         {% else %}
@@ -19,6 +19,23 @@
                     <p class="mb-1">{{ product.description }}</p>
                     <small>by {{ product.owner.firstName }}</small>
                 </a>
+                {% endfor %}
+            </div>
+            <h3>All product</h3>
+            <div class="list-group">
+                {% for product in all %}
+                    <a href="{{ path('productShow', {'id': product.id}) }}" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ product.name }} <span class="badge badge-secondary">{{ product.tag }}</span></h5>
+                            {% if date(product.endDate) < date() %}
+                                <small>Ended</small>
+                            {% else %}
+                                <small>{{ product.endDate.diff(date('now')).days }} days left</small>
+                            {% endif %}
+                        </div>
+                        <p class="mb-1">{{ product.description }}</p>
+                        <small>by {{ product.owner.firstName }}</small>
+                    </a>
                 {% endfor %}
             </div>
         </div>

@@ -1,9 +1,9 @@
 <header class="sm-9 ">
-    <nav class="navbar navbar-expand-x1 navbar-light bg-primary ">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-light bg-primary">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('home') }}">Home</a>
@@ -13,12 +13,6 @@
                         <a class="nav-link" href="{{ path('profile') }}">Profile</a>
                     </li>
                 {% endif %}
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Menu1</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Menu2</a>
-                </li>
             </ul>
             <ul class="navbar-nav">
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}

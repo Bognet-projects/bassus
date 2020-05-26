@@ -28,3 +28,7 @@ productUnSub:
 productShow:
   path: /product/show/{id}
   controller: App\Controller\ProductsController::show
+
+addTag:
+  path: /profil/user
+  controller: App\Controller\ProfileController::addTag

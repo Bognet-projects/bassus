@@ -54,6 +54,11 @@ class Product
      */
     private $bets;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Tag::class, inversedBy="products")
+     */
+    private $tag;
+
     public function __construct()
     {
         $this->bets = new ArrayCollection();
@@ -163,6 +168,18 @@ class Product
                 $bet->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTag(): ?Tag
+    {
+        return $this->tag;
+    }
+
+    public function setTag(?Tag $tag): self
+    {
+        $this->tag = $tag;
 
         return $this;
     }

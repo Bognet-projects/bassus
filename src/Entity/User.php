@@ -62,6 +62,11 @@ class User implements UserInterface
      */
     private $subscriptions;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Tag::class, inversedBy="users")
+     */
+    private $tag;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -259,6 +264,18 @@ class User implements UserInterface
         if ($this->subscriptions->contains($subscription)) {
             $this->subscriptions->removeElement($subscription);
         }
+
+        return $this;
+    }
+
+    public function getTag(): ?Tag
+    {
+        return $this->tag;
+    }
+
+    public function setTag(?Tag $tag): self
+    {
+        $this->tag = $tag;
 
         return $this;
     }
