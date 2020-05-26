@@ -88,6 +88,31 @@
                         </ul>
                     </div>
                 </div>
+                <div class="col-sm-6 my-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Subscriptions</h4>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            {% for product in app.user.subscriptions %}
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-8 ">
+                                            <a href="{{ path('productShow',{'id': product.id}) }}">
+                                                {{ product.name }}
+                                            </a>
+                                        </div>
+                                        {% if date(product.endDate) < date() %}
+                                            <div class="col-4">Ended</div>
+                                        {% else %}
+                                            <div class="col-4">{{ product.endDate.diff(date('now')).days }} days left</div>
+                                        {% endif %}
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
