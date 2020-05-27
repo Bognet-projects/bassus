@@ -4,7 +4,8 @@
     <main>
         <div class="container">
             <h1 class="text-center">HomePage</h1>
-            <h3>My tags:</h3>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <h3>My tag:</h3>
             <div class="list-group">
                 {% for product in products %}
                 <a href="{{ path('productShow', {'id': product.id}) }}" class="list-group-item list-group-item-action">
@@ -21,6 +22,7 @@
                 </a>
                 {% endfor %}
             </div>
+            {% endif %}
             <h3>All product</h3>
             <div class="list-group">
                 {% for product in all %}
